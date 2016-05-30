@@ -1,0 +1,7 @@
+.DS_STORE
+*.log
+.vscode/chrome
+node_modules
+dist
+coverage
+webpack-assets.json
