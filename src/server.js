@@ -77,7 +77,6 @@ app.use('/parse-dashboard', dashboard);
 
 
 app.use((req, res) => {
-  console.log(req.url);
   if (__DEV__) {
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
@@ -93,7 +92,7 @@ app.use((req, res) => {
 
   function hydrateOnClient() {
     res.send(`<!doctype html>\n${ReactDOM.renderToString(
-      <Html assets={webpackIsomorphicTools.assets() } store={store} />)}`);
+      <Html assets={webpackIsomorphicTools.assets()} store={store} />)}`);
   }
 
   if (__DISABLE_SSR__) {
@@ -123,7 +122,7 @@ app.use((req, res) => {
 
 
       res.send(`<!doctype html>\n${ReactDOM.renderToString(
-        <Html assets={webpackIsomorphicTools.assets() } component={component} store={store} />)}`);
+        <Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`);
     }
   });
 });
