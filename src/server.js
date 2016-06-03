@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/server';
 import config from './config';
 import favicon from 'serve-favicon';
 import compression from 'compression';
-import httpProxy from 'http-proxy';
 import path from 'path';
 import Html from './index';
 import PrettyError from 'pretty-error';
@@ -16,47 +15,61 @@ import { Provider } from 'react-redux';
 import createStore from './store/createStore';
 import makeRoutes from './routes';
 
-const targetUrl = `http://${config.apiHost}:${config.apiPort}`;
+
+const ParseServer = require('parse-server').ParseServer;
+const ParseDashboard = require('parse-dashboard');
+
+
 const pretty = new PrettyError();
 const app = new Express();
+
 const server = new http.Server(app);
-const proxy = httpProxy.createProxyServer({
-  target: targetUrl,
-  ws: true,
-});
+
 
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 
 app.use(Express.static(path.join(__dirname, '..', 'static')));
 
-// Proxy to API server
-/* app.use('/api', (req, res) => {
-    proxy.web(req, res, { target: targetUrl });
-});
 
-app.use('/ws', (req, res) => {
-    proxy.web(req, res, { target: targetUrl + '/ws' });
-});
-*/
-server.on('upgrade', (req, socket, head) => {
-  proxy.ws(req, socket, head);
-});
+const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+if (!databaseUri) {
+  console.log('DATABASE_URI not specified, falling back to localhost.');
+}
 
-// added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
-proxy.on('error', (error, req, res) => {
-  const json = { error: 'proxy_error', reason: error.message };
-  if (error.code !== 'ECONNRESET') {
-    console.error('proxy error', error);
+const api = new ParseServer({
+  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+  cloud: process.env.CLOUD_CODE_MAIN || `${__dirname}/server/cloud/main.js`,
+  appId: process.env.APP_ID || 'myAppId',
+  masterKey: process.env.MASTER_KEY || 'myAppId', // Add your master key here. Keep it secret!
+  serverURL: process.env.SERVER_URL || 'http://localhost:3000/api,',  // Don't forget to change to https if needed
+  liveQuery: {
+    classNames: ['Posts', 'Comments'] // List of classes to support for query subscriptions
   }
-  if (!res.headersSent) {
-    res.writeHead(500, { 'content-type': 'application/json' });
-  }
-
-  res.end(JSON.stringify(json));
 });
+
+const dashboard = new ParseDashboard({
+  apps: [
+    {
+      serverURL: process.env.SERVER_URL || 'http://localhost:3000/api',
+      appId: process.env.APP_ID || 'myAppId',
+      masterKey: process.env.MASTER_KEY || 'myAppId', // Add your master key here. Keep it secret!
+      appName: 'MyApp'
+    }]
+});
+
+ParseServer.createLiveQueryServer(server);
+
+
+// Serve the Parse API on the /parse URL prefix
+const mountPath = process.env.PARSE_MOUNT || '/api';
+app.use(mountPath, api);
+
+app.use('/parse-dashboard', dashboard);
+
 
 app.use((req, res) => {
+  console.log(req.url);
   if (__DEV__) {
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env

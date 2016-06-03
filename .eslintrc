@@ -10,7 +10,8 @@
     "__PROD__": false,
     "__DEBUG__": false,
     "__COVERAGE__": false,
-    "__BASENAME__": false
+    "__BASENAME__": false,
+    "Parse": false
   },
   "parser": "babel-eslint",
   "settings": {
