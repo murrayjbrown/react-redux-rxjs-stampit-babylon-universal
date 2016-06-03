@@ -49,6 +49,7 @@ const api = new ParseServer({
 });
 
 const dashboard = new ParseDashboard({
+  allowInsecureHTTP: true,
   apps: [
     {
       serverURL: process.env.SERVER_URL || 'http://localhost:3000/api',
