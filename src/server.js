@@ -49,7 +49,6 @@ const api = new ParseServer({
 });
 
 const dashboard = new ParseDashboard({
-  allowInsecureHTTP: true,
   apps: [
     {
       serverURL: process.env.SERVER_URL || 'http://localhost:3000/api',
@@ -57,7 +56,7 @@ const dashboard = new ParseDashboard({
       masterKey: process.env.MASTER_KEY || 'myAppId', // Add your master key here. Keep it secret!
       appName: 'MyApp'
     }]
-});
+}, true);
 
 ParseServer.createLiveQueryServer(server);
 
@@ -86,7 +85,7 @@ app.use((req, res) => {
 
   function hydrateOnClient() {
     res.send(`<!doctype html>\n${ReactDOM.renderToString(
-      <Html assets={webpackIsomorphicTools.assets()} store={store} />)}`);
+      <Html assets={webpackIsomorphicTools.assets() } store={store} />)}`);
   }
 
   if (__DISABLE_SSR__) {
@@ -116,7 +115,7 @@ app.use((req, res) => {
 
 
       res.send(`<!doctype html>\n${ReactDOM.renderToString(
-        <Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`);
+        <Html assets={webpackIsomorphicTools.assets() } component={component} store={store} />)}`);
     }
   });
 });
