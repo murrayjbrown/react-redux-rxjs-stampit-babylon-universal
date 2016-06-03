@@ -55,7 +55,15 @@ const dashboard = new ParseDashboard({
       appId: process.env.APP_ID || 'myAppId',
       masterKey: process.env.MASTER_KEY || 'myAppId', // Add your master key here. Keep it secret!
       appName: 'MyApp'
-    }]
+    }],
+
+  users: [
+    {
+      user: 'admin',
+      pass: 'password'
+    }
+  ]
+
 }, true);
 
 ParseServer.createLiveQueryServer(server);
