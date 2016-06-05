@@ -20,7 +20,7 @@
     "test:mocha": "mocha --debug-brk",
     "lint": "eslint src tests",
     "lint:fix": "npm run lint -- --fix",
-    "commit": "git add . && git-cz --retry"
+    "commit": "git-cz --retry"
   },
   "pre-push": [
     "lint:fix",
