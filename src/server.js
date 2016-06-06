@@ -38,6 +38,7 @@ if (!databaseUri) {
 }
 
 const api = new ParseServer({
+  verbose: false,
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || `${__dirname}/server/cloud/main.js`,
   appId: process.env.APP_ID || 'myAppId',
@@ -89,10 +90,9 @@ app.use((req, res) => {
   const history = syncHistoryWithStore(memoryHistory, store, {
     selectLocationState: (state) => state.router,
   });
-
   function hydrateOnClient() {
     res.send(`<!doctype html>\n${ReactDOM.renderToString(
-      <Html assets={webpackIsomorphicTools.assets()} store={store} />)}`);
+      <Html assets={webpackIsomorphicTools.assets() } store={store} />)}`);
   }
 
   if (__DISABLE_SSR__) {
@@ -122,7 +122,7 @@ app.use((req, res) => {
 
 
       res.send(`<!doctype html>\n${ReactDOM.renderToString(
-        <Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`);
+        <Html assets={webpackIsomorphicTools.assets() } component={component} store={store} />)}`);
     }
   });
 });
