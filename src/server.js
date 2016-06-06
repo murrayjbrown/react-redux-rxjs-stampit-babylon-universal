@@ -92,7 +92,7 @@ app.use((req, res) => {
   });
   function hydrateOnClient() {
     res.send(`<!doctype html>\n${ReactDOM.renderToString(
-      <Html assets={webpackIsomorphicTools.assets() } store={store} />)}`);
+      <Html assets={webpackIsomorphicTools.assets()} store={store} />)}`);
   }
 
   if (__DISABLE_SSR__) {
@@ -122,7 +122,7 @@ app.use((req, res) => {
 
 
       res.send(`<!doctype html>\n${ReactDOM.renderToString(
-        <Html assets={webpackIsomorphicTools.assets() } component={component} store={store} />)}`);
+        <Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`);
     }
   });
 });

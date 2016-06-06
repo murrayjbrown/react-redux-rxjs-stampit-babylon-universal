@@ -22,7 +22,6 @@ Parse.Cloud.define('hello', (req, res) => {
 
 Parse.Cloud.define('signUp', (req, res) => {
   try {
-
     const user = new Parse.User();
     user.set('username', 'nathanvale');
     user.set('password', 'password');
@@ -43,7 +42,6 @@ Parse.Cloud.define('signUp', (req, res) => {
 
 Parse.Cloud.define('logOut', (req, res) => {
   try {
-
     const user = req.user;
     return user.logOut()
       .then(
