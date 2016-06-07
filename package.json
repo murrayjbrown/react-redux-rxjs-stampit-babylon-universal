@@ -135,6 +135,7 @@
     "url-loader": "^0.5.6",
     "webpack": "^1.12.14",
     "webpack-isomorphic-tools": "^2.2.18",
+    "when": "^3.7.7",
     "yargs": "^4.0.0"
   },
   "devDependencies": {
