@@ -8,13 +8,14 @@ import sinonChai from 'sinon-chai';
 import chaiAsPromised from 'chai-as-promised';
 import chaiEnzyme from 'chai-enzyme';
 import Rx from 'rxjs';
+import Parse from 'parse';
 
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 chai.use(chaiEnzyme());
 
-
+global.Parse = Parse;
 global.chai = chai;
 global.sinon = sinon;
 global.expect = chai.expect;

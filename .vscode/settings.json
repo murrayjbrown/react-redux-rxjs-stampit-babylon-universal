@@ -1,0 +1,11 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  // The number of spaces a tab is equal to.
+  "editor.tabSize": 2,
+  // When enabled, will trim trailing whitespace when you save a file.
+  "files.trimTrailingWhitespace": true,
+  // Controls auto save of dirty files. Accepted values:  "off", "afterDelay", "onFocusChange". If set to "afterDelay" you can configure the delay in "files.autoSaveDelay".
+  "files.autoSave": "afterDelay",
+  // Controls the delay in ms after which a dirty file is saved automatically. Only applies when "files.autoSave" is set to "afterDelay"
+  "files.autoSaveDelay": 1000
+}

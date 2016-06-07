@@ -25,8 +25,8 @@ const karmaConfig = {
   reporters: ['mocha'],
   captureTimeout: 60000,
   preprocessors: {
-    'tests/test-bundler.js': ['webpack']
-    // 'tests/test-bundler.js': ['webpack', 'sourcemap']
+    //'tests/test-bundler.js': ['webpack']
+     'tests/test-bundler.js': ['webpack', 'sourcemap']
   },
   client: {
     mocha: {
@@ -35,11 +35,11 @@ const karmaConfig = {
       timeout: 15000
     }
   },
-  browsers: ['PhantomJS'],
+  browsers: ['Chrome'],
 
   webpack: {
-    // devtool: 'inline-source-map',
-    devtool: 'cheap-module-source-map',
+     devtool: 'inline-source-map',
+    //devtool: 'cheap-module-source-map',
     resolve: {
       ...webpackConfig.resolve,
       alias: {
