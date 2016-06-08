@@ -9,12 +9,14 @@ import chaiAsPromised from 'chai-as-promised';
 import chaiEnzyme from 'chai-enzyme';
 import Rx from 'rxjs';
 import Parse from 'parse';
+import when from 'when';
 
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 chai.use(chaiEnzyme());
 
+global.when = when;
 global.Parse = Parse;
 global.chai = chai;
 global.sinon = sinon;
@@ -44,5 +46,5 @@ const testsToRun = testsContext.keys().filter(inManifest)
   ; (testsToRun.length ? testsToRun : testsContext.keys()).forEach(testsContext);
 
 const componentsContext = require.context('../src/',
-true, /^((?!client|bootstrap|font-awesome|server).)*\.js$/);
+  true, /^((?!client|bootstrap|font-awesome|server).)*\.js$/);
 componentsContext.keys().forEach(componentsContext);

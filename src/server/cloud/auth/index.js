@@ -11,12 +11,12 @@ query.find(sessionToken: token);
 */
 
 const hello = (req, res) => {
-  res.success('Boom!');
+  res.success('Hello!');
 };
 
 const signUp = (req, res) => {
   const user = new Parse.User();
-  user.set('username', 'nathanvale2');
+  user.set('username', 'nathanvale');
   user.set('password', 'password');
   return user.signUp(null)
     .then(
@@ -27,12 +27,12 @@ const signUp = (req, res) => {
 
 const logIn = (req, res) =>
   Parse.User.logIn(
-    'nathanvale',
-    'password'
+    req.params.username,
+    req.params.password
   )
     .then(
     response => res.success(response),
-    err => res.error(err.message)
+    error => res.error(error)
     );
 
 const logOut = (req, res) =>
