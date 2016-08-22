@@ -1,0 +1,18 @@
+{
+  "extends": "../.eslintrc",
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "when": false,
+    "chai": false,
+    "expect": false,
+    "should": false,
+    "sinon": false,
+    "TestScheduler": false,
+    "Observable": false
+  },
+  "rules": {
+    "no-unused-expressions": 1
+  }
+}
