@@ -2,6 +2,7 @@
 import { CoreLayout } from '../layouts/CoreLayout/CoreLayout';
 import HomeRoute from './Home';
 import CounterRoute from './Counter';
+import GameRoute from './Game';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -12,7 +13,8 @@ export const createRoutes = (store) => ({
   indexRoute: HomeRoute(store), // eslint-disable-line new-cap
   childRoutes: [
     CounterRoute(store), // eslint-disable-line new-cap
-  ],
+    GameRoute(store)
+  ]
 });
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically

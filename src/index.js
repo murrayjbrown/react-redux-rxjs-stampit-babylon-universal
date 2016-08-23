@@ -51,15 +51,17 @@ export default class Html extends Component { // eslint-disable-line react/prefe
           {/* ideally one could also include here the style for the
             *current page (Home.scss, About.scss, etc) */}
           {/* eslint-disable */
-            Object.keys(assets.styles).length === 0 ? <style type="text/css" dangerouslySetInnerHTML={{
+            Object.keys(assets.styles).length > 0 ? null :
+              <style type="text/css" dangerouslySetInnerHTML={{
               __html: require('./theme/bootstrap.config.js') +
               require('./layouts/CoreLayout/CoreLayout.scss')._style +
               require('./components/Header/Header.scss')._style +
               require('./routes/Home/components/HomeView.scss')._style +
-              require('./components/Counter/Counter.scss')._style
-            }/* eslint-enable */}
+                require('./components/Counter/Counter.scss')._style +
+                require('./components/Game/Game.scss')._style
+              }}
             />
-              : null}
+            /* eslint-enable */}
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
