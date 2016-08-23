@@ -85,7 +85,10 @@ app.use((req, res) => {
   }
   const initialState = { global: { loading: true } };
   const memoryHistory = createHistory(req.originalUrl);
-  const store = createStore(initialState, memoryHistory);
+  const store = createStore(initialState, memoryHistory,
+    typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
+    window.devToolsExtension() : f => f
+  );
   const routes = makeRoutes(store);
   const history = syncHistoryWithStore(memoryHistory, store, {
     selectLocationState: (state) => state.router,

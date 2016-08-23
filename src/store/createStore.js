@@ -28,7 +28,9 @@ export default (initialState = {}, history) => {
     initialState,
     compose(
       applyMiddleware(...middleware),
-      ...enhancers
+      ...enhancers,
+      typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
+      window.devToolsExtension() : f => f
     )
   );
   store.asyncReducers = {};
