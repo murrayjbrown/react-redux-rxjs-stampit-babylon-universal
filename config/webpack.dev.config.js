@@ -5,7 +5,7 @@ var cssnano = require('cssnano');
 var webpack = require('webpack');
 var assetsPath = path.resolve(__dirname, '../static/dist');
 var host = (process.env.HOST || 'localhost');
-var port = (+process.env.PORT + 1) || 3001;
+var port = (process.env.PORT) || 3000;
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
@@ -19,7 +19,6 @@ try {
   console.error('==>     ERROR: Error parsing your .babelrc.');
   console.error(err);
 }
-
 
 var babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.development || {};
 
@@ -54,7 +53,6 @@ module.exports = {
       'react-router-redux',
       'redux'
     ]
-
   },
   output: {
     path: assetsPath,
@@ -119,4 +117,3 @@ module.exports = {
     webpackIsomorphicToolsPlugin.development()
   ]
 };
-

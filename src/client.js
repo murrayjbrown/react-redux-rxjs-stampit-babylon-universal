@@ -23,9 +23,8 @@ const browserHistory = useRouterHistory(createBrowserHistory)({
 // react-router-redux reducer under the key "router" in src/routes/index.js,
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
-const store = createStore(window.__data, browserHistory,
-  window.devToolsExtension && window.devToolsExtension()
-);// eslint-disable-line no-underscore-dangle
+const store = createStore(window.__data, browserHistory);// eslint-disable-line no-underscore-dangle
+// window.devToolsExtension && window.devToolsExtension()
 let routes = makeRoutes(store);
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.router,
@@ -37,7 +36,7 @@ const history = syncHistoryWithStore(browserHistory, store, {
 let render = (key = null) => {
   const Root = require('./containers/Root').default;// eslint-disable-line global-require
   routes = require('./routes/index').default(store);// eslint-disable-line global-require
-  let App = null;
+  let App;
   if (__DEV__) {
     App = (
       <AppContainer>

@@ -23,14 +23,14 @@ export default (initialState = {}, history) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
+  //   typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
+  //  window.devToolsExtension() : f => f,
   const store = createStore(
     makeRootReducer(),
     initialState,
     compose(
       applyMiddleware(...middleware),
-      ...enhancers,
-      typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
-      window.devToolsExtension() : f => f
+      ...enhancers
     )
   );
   store.asyncReducers = {};

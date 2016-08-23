@@ -85,10 +85,10 @@ app.use((req, res) => {
   }
   const initialState = { global: { loading: true } };
   const memoryHistory = createHistory(req.originalUrl);
-  const store = createStore(initialState, memoryHistory,
-    typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
-    window.devToolsExtension() : f => f
-  );
+  const store = createStore(initialState, memoryHistory);
+  // typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
+  //  window.devToolsExtension() : f => f
+  // );
   const routes = makeRoutes(store);
   const history = syncHistoryWithStore(memoryHistory, store, {
     selectLocationState: (state) => state.router,
@@ -140,4 +140,3 @@ if (config.port) {
 } else {
   console.error('==>     ERROR: No PORT environment variable has been specified');
 }
-

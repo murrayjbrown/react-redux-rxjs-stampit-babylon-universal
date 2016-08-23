@@ -15,6 +15,7 @@
     "build": "better-npm-run build-dev",
     "build-dev": "better-npm-run build-dev",
     "build-prod": "better-npm-run build-prod",
+    "build-test": "better-npm-run build-test",
     "commit": "git-cz",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" ",
     "lint": "eslint src tests",
@@ -23,6 +24,7 @@
     "start": "concurrent --kill-others \"npm run start-dev\"",
     "start-dev": "better-npm-run start-dev",
     "start-prod": "better-npm-run start-prod",
+    "start-test": "better-npm-run start-test",
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
     "test:mocha": "mocha --debug-brk",
@@ -34,6 +36,14 @@
     "test"
   ],
   "betterScripts": {
+    "start-dev": {
+      "command": "node ./bin/server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "development",
+        "PORT": 3000
+      }
+    },
     "start-prod": {
       "command": "node ./bin/server.js",
       "env": {
@@ -41,11 +51,11 @@
         "NODE_ENV": "production"
       }
     },
-    "start-dev": {
+    "start-test": {
       "command": "node ./bin/server.js",
       "env": {
         "NODE_PATH": "./src",
-        "NODE_ENV": "development",
+        "NODE_ENV": "test",
         "PORT": 3000
       }
     },
@@ -67,6 +77,12 @@
       "command": "webpack --verbose --colors --display-error-details --config config/webpack.prod.config.js",
       "env": {
         "NODE_ENV": "production"
+      }
+    },
+    "build-test": {
+      "command": "webpack --verbose --colors --display-error-details --config config/webpack.test.config.js",
+      "env": {
+        "NODE_ENV": "test"
       }
     },
     "test": {
@@ -138,6 +154,7 @@
     "react-router-redux": "dlmr/react-router-redux#fix-inital-server-load-dist",
     "redux": "^3.0.0",
     "redux-observable": "^0.5.0",
+    "resolve-url-loader": "^1.6.0",
     "rimraf": "^2.5.1",
     "rxjs": "^5.0.0-beta.8",
     "sass-loader": "^3.1.2",

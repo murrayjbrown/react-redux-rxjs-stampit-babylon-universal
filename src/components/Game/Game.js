@@ -10,7 +10,7 @@ export const Game = (props) => (
 );
 
 Game.propTypes = {
-  game: React.PropTypes.any
+  scene: React.PropTypes.object
 };
 
 export default Game;
