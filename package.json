@@ -1,26 +1,32 @@
 {
-  "name": "react-redux-starter-kit",
-  "version": "3.0.0-alpha.0",
-  "description": "Get started with React, Redux, and React-Router!",
-  "main": "bin/server.js",
-  "engines": {
-    "node": "4.4.0",
-    "npm": "3.8.7"
+  "name": "react-redux-rxjs-stampit-babylon-universal",
+  "version": "0.1.0",
+  "description": "A React/Redux/Rx demo app with BabylonJS game engine drivers using stamps.",
+  "author": "Murray J Brown <mjb@mjbrown.com> (http://mjbrown.com)",
+  "contributors": ["David Zukowski <david@zuko.me> (http://zuko.me)"],
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "private": true,
+    "type": "git",
+    "url": "git@github.com:murrayjbrown/react-redux-rxjs-stampit-babylon-universal.git"
   },
   "scripts": {
-    "start": "concurrent --kill-others \"npm run start-prod\"",
-    "start-prod": "better-npm-run start-prod",
-    "build": "better-npm-run build",
-    "postinstall": "npm run build",
-    "start-dev": "better-npm-run start-dev",
-    "watch-client": "better-npm-run watch-client",
+    "build": "better-npm-run build-dev",
+    "build-dev": "better-npm-run build-dev",
+    "build-prod": "better-npm-run build-prod",
+    "commit": "git-cz",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" ",
+    "lint": "eslint src tests",
+    "lint:fix": "npm run lint -- --fix",
+    "postinstall": "npm run build",
+    "start": "concurrent --kill-others \"npm run start-dev\"",
+    "start-dev": "better-npm-run start-dev",
+    "start-prod": "better-npm-run start-prod",
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
     "test:mocha": "mocha --debug-brk",
-    "lint": "eslint src tests",
-    "lint:fix": "npm run lint -- --fix",
-    "commit": "git-cz"
+    "watch-client": "better-npm-run watch-client"
   },
   "pre-push": [
     "lint:fix",
@@ -51,7 +57,13 @@
         "PORT": 3000
       }
     },
-    "build": {
+    "build-dev": {
+      "command": "webpack --verbose --colors --display-error-details --config config/webpack.dev.config.js",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "build-prod": {
       "command": "webpack --verbose --colors --display-error-details --config config/webpack.prod.config.js",
       "env": {
         "NODE_ENV": "production"
@@ -65,12 +77,11 @@
       }
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/davezuko/react-redux-starter-kit.git"
+  "engines": {
+    "node": "^4.4.0",
+    "npm": "^3.8.7"
   },
-  "author": "David Zukowski <david@zuko.me> (http://zuko.me)",
-  "license": "MIT",
+  "main": "bin/server.js",
   "dependencies": {
     "babel-cli": "^6.5.1",
     "babel-core": "^6.3.17",
@@ -86,6 +97,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "babel-register": "^6.3.13",
     "babel-runtime": "^6.3.19",
+    "babylonjs": "^2.4.0",
     "better-npm-run": "0.0.8",
     "bootstrap-sass": "^3.3.5",
     "bootstrap-sass-loader": "^1.0.9",
@@ -101,6 +113,7 @@
     "font-awesome": "^4.4.0",
     "font-awesome-webpack": "0.0.4",
     "fs-extra": "^0.30.0",
+    "hand": "^0.1.2",
     "history": "^2.0.0",
     "html-webpack-plugin": "^2.7.1",
     "http-proxy": "^1.12.0",
@@ -130,6 +143,7 @@
     "sass-loader": "^3.1.2",
     "serialize-javascript": "^1.1.2",
     "serve-favicon": "^2.3.0",
+    "stampit": "^3.0.0-rc.9",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.6",
