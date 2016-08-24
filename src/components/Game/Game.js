@@ -6,11 +6,14 @@ export const Game = (props) => (
     <div className={classes.gameContainer}>
       <canvas className={classes['game']} />
     </div>
+    <button className="btn btn-default" onClick={props.bgColourize}>
+      Colourize background
+    </button>
   </div>
 );
 
 Game.propTypes = {
-  scene: React.PropTypes.object
+  bgColourize: React.PropTypes.func.isRequired
 };
 
 export default Game;
