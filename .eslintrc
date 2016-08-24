@@ -95,7 +95,7 @@
     "no-new-object": 2,
     "no-new-wrappers": 2,
     "no-path-concat": 0,
-    "no-return-assign": 2,
+    "no-return-assign": 1,
     "no-script-url": 2,
     "no-self-compare": 1,
     "no-sequences": 2,

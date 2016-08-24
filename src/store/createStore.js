@@ -14,7 +14,7 @@ export default (initialState = {}, history) => {
   // ======================================================
   const enhancers = [];
   if (__DEVTOOLS__) {
-    const devToolsExtension = window.devToolsExtension;
+    const devToolsExtension = window ? window.devToolsExtension : null;
     if (typeof devToolsExtension === 'function') {
       enhancers.push(devToolsExtension());
     }
@@ -23,8 +23,6 @@ export default (initialState = {}, history) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
-  //   typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
-  //  window.devToolsExtension() : f => f,
   const store = createStore(
     makeRootReducer(),
     initialState,

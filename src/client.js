@@ -24,7 +24,6 @@ const browserHistory = useRouterHistory(createBrowserHistory)({
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
 const store = createStore(window.__data, browserHistory);// eslint-disable-line no-underscore-dangle
-// window.devToolsExtension && window.devToolsExtension()
 let routes = makeRoutes(store);
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.router,
