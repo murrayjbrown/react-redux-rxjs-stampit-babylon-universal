@@ -69,7 +69,6 @@ const dashboard = new ParseDashboard({
 
 ParseServer.createLiveQueryServer(server);
 
-
 // Serve the Parse API on the /parse URL prefix
 const mountPath = process.env.PARSE_MOUNT || '/api';
 app.use(mountPath, api);
@@ -81,7 +80,7 @@ app.use((req, res) => {
   if (__DEV__) {
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
-    webpackIsomorphicTools.refresh();
+    // webpackIsomorphicTools.refresh();
   }
   const initialState = { global: { loading: true } };
   const memoryHistory = createHistory(req.originalUrl);

@@ -1,11 +1,12 @@
 import Rx from 'rxjs';
-// import BABYLON from 'babylonjs/babylon';
-// const BJS = BABYLON;  // external dependency
+import {babylonSceneDriverFactory} from 'scenes/BabylonScene';
+import BABYLON from 'babylonjs/babylon';
 
 // ------------------------------------
 // Constants
 // ------------------------------------
 export const GAME_BGCOLOURIZE = 'GAME_BGCOLOURIZE';
+export const GAME_REFCANVAS = 'GAME_REFCANVAS';
 
 // ------------------------------------
 // Actions
@@ -16,9 +17,16 @@ export function bgColourize(value = 1) {
     payload: value
   };
 }
+export function refCanvas(value = null) {
+  return {
+    type: GAME_REFCANVAS,
+    payload: value
+  };
+}
 
 export const actions = {
-  bgColourize
+  bgColourize,
+  refCanvas
 };
 
 // ------------------------------------
@@ -30,11 +38,25 @@ const ACTION_HANDLERS = {
     const red = Math.random();
     const green = Math.random();
     const blue = Math.random();
-    // state.scene.clearColor = new BABYLON.Color4(red, green, blue);
+    const scene = state.sceneDriver.getScene();
+    scene.clearColor = new BABYLON.Color4(red, green, blue);
 
     // set new state
     const newState = state;
     newState.bgcolour += action.payload;
+    return newState;
+  },
+  [GAME_REFCANVAS]: (state, action) => {
+    const newState = state;
+    if ( !state.sceneDriver ) { // first reference
+      const canvasRef = action.payload;
+      const sceneDriver = babylonSceneDriverFactory(canvasRef);
+      sceneDriver.setup();
+      sceneDriver.runRenderLoop();
+      // set new state values
+      newState.canvasRef = canvasRef;
+      newState.sceneDriver = sceneDriver;
+    }
     return newState;
   }
 };
@@ -44,8 +66,11 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   bgColour: 1,
-  scene: null
+  canvasRef: null,
+  sceneDriver: null
 };
+//
+
 export default function gameReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];
   return handler ? handler(state, action) : state;

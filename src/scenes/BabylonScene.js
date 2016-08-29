@@ -8,9 +8,8 @@
 //
 
 import stampit from 'stampit';
-import {Cloneable, SelfAware} from 'common-stamps';
+import {Cloneable, SelfAware} from 'utils/common-stamps';
 import BABYLON from 'babylonjs/babylon';
-
 const BJS = BABYLON;  // external dependency
 
 const BabylonCameras = stampit
@@ -158,10 +157,10 @@ const BabylonGrounds = stampit
     };
   });
 
-
+//
 // Factory to compose stamps-based Babylon Scene Driver
+//
 export const babylonSceneDriverFactory = (canvasElement) => {
-
   const BabylonDriver = stampit
     .methods({
       runRenderLoop() {
@@ -230,6 +229,5 @@ export const babylonSceneDriverFactory = (canvasElement) => {
       BabylonGrounds
     );
   const babylonSceneDriver = BabylonSceneDriver();
-
   return babylonSceneDriver;
 };

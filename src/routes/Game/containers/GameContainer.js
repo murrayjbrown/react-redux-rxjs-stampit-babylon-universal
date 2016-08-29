@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { bgColourize } from '../modules/game';
+import { bgColourize, refCanvas } from '../modules/game';
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -13,11 +13,13 @@ import Game from '../../../components/Game';
     implementing our wrapper around bgColourize; the component doesn't care   */
 
 export const mapActionCreators = {
-  bgColourize: () => bgColourize(1)
+  bgColourize: () => bgColourize(1),
+  refCanvas: (ref) => refCanvas(ref)
 };
 
 const mapStateToProps = (state) => ({
   bgColour: state.bgColour,
+  canvasRef: state.canvasRef,
   scene: state.scene
 });
 
