@@ -48,14 +48,23 @@ const ACTION_HANDLERS = {
   },
   [GAME_REFCANVAS]: (state, action) => {
     const newState = state;
-    if ( !state.sceneDriver ) { // first reference
-      const canvasRef = action.payload;
-      const sceneDriver = babylonSceneDriverFactory(canvasRef);
-      sceneDriver.setup();
-      sceneDriver.runRenderLoop();
-      // set new state values
-      newState.canvasRef = canvasRef;
-      newState.sceneDriver = sceneDriver;
+
+    if ( action.payload ) { // mounting canvas
+      if ( !state.canvas ) {
+        newState.canvas = action.payload;
+        if ( !state.sceneDriver ) { // new scene driver
+          newState.sceneDriver = babylonSceneDriverFactory(newState.canvas);
+          newState.sceneDriver.create();
+        }
+        newState.sceneDriver.runRenderLoop();
+      }
+    } else {  // unmounting canvas
+      if ( state.sceneDriver ) {
+        state.sceneDriver.stopRenderLoop();
+        state.sceneDriver.destroy();
+        newState.sceneDriver = null;
+        newState.canvas = null;
+      }
     }
     return newState;
   }
@@ -66,7 +75,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   bgColour: 1,
-  canvasRef: null,
+  canvas: null,
   sceneDriver: null
 };
 //

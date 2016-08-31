@@ -18,9 +18,7 @@ export const mapActionCreators = {
 };
 
 const mapStateToProps = (state) => ({
-  bgColour: state.bgColour,
-  canvasRef: state.canvasRef,
-  scene: state.scene
+  bgColour: state.bgColour
 });
 
 export default connect(mapStateToProps, mapActionCreators)(Game);

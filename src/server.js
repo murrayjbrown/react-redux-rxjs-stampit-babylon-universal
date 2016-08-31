@@ -15,22 +15,18 @@ import { Provider } from 'react-redux';
 import createStore from './store/createStore';
 import makeRoutes from './routes';
 
-
 const ParseServer = require('parse-server').ParseServer;
 const ParseDashboard = require('parse-dashboard');
-
 
 const pretty = new PrettyError();
 const app = new Express();
 
 const server = new http.Server(app);
 
-
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 
 app.use(Express.static(path.join(__dirname, '..', 'static')));
-
 
 const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 if (!databaseUri) {
@@ -75,13 +71,13 @@ app.use(mountPath, api);
 
 app.use('/parse-dashboard', dashboard);
 
-
 app.use((req, res) => {
   if (__DEV__) {
     // Do not cache webpack stats: the script file would change since
     // hot module replacement is enabled in the development env
     // webpackIsomorphicTools.refresh();
   }
+
   const initialState = { global: { loading: true } };
   const memoryHistory = createHistory(req.originalUrl);
   const store = createStore(initialState, memoryHistory);
@@ -89,6 +85,7 @@ app.use((req, res) => {
   const history = syncHistoryWithStore(memoryHistory, store, {
     selectLocationState: (state) => state.router,
   });
+
   function hydrateOnClient() {
     res.send(`<!doctype html>\n${ReactDOM.renderToString(
       <Html assets={webpackIsomorphicTools.assets()} store={store} />)}`);
@@ -118,7 +115,6 @@ app.use((req, res) => {
       res.status(200);
 
       global.navigator = { userAgent: req.headers['user-agent'] };
-
 
       res.send(`<!doctype html>\n${ReactDOM.renderToString(
         <Html assets={webpackIsomorphicTools.assets()} component={component} store={store} />)}`);

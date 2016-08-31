@@ -103,8 +103,12 @@ module.exports = {
   plugins: [
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
+    }),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor']
+      names: [],
+      children: true
     }),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
@@ -113,7 +117,7 @@ module.exports = {
       __SERVER__: false,
       __DEV__: true,
       __DEVTOOLS__: true,  // <-------- DISABLE redux-devtools HERE
-      __DISABLE_SSR__: false
+      __DISABLE_SSR__: true
     }),
     webpackIsomorphicToolsPlugin.development()
   ]

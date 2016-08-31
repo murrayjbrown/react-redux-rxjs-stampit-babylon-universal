@@ -170,6 +170,13 @@ export const babylonSceneDriverFactory = (canvasElement) => {
           scene.render();
         });
       },
+      stopRenderLoop() {
+        const engine = this.getEngine();
+        const scene = this.getScene();
+        engine.stopRenderLoop(() => {
+          scene.render();
+        });
+      },
       setup() {
         // setup scene in proper order of composition
         if ( this.setupCameras ) {
@@ -203,6 +210,18 @@ export const babylonSceneDriverFactory = (canvasElement) => {
           console.log("BablyonSceneDriver: scene not initialized.");
           return null;
         }
+      };
+      this.create = () => {
+        if( this._scene ) {
+          return null;
+        } else if( this.setup ) {
+          return this.setup();
+        }
+      };
+      this.destroy = () => {
+        this._canvas = null;
+        this._engine = null;
+        this._scene = null;
       };
       this.getCanvas = () => {
         return _canvas;
